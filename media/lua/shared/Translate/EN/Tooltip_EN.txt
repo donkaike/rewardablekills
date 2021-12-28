@@ -1,0 +1,13 @@
+Tooltip_EN = {
+    Tooltip_BetterTraits_AntiqueAxe = "A rare, hardened stone axe.<br>Very strong and durable, but unrepairable.",
+    Tooltip_BetterTraits_Thumper = "A rare stone maul.<br>Capable of knocking down entire crowds in one swing.<br>Incredibly powerful, but also extremely heavy!",
+    Tooltip_BetterTraits_ObsidianBlade = "A rare antique sacrificial dagger.<br>Very powerful, but brittle.",
+    Tooltip_BetterTraits_PackerBag = "A rare pack.<br>Large capacity and high weight reduction.",
+    Tooltip_BetterTraits_BloodyCrowbar = "This crowbar has been shaped and refined to swing faster and deal more damage.",
+    Tooltip_BetterTraits_Slugger = "A rare, signed aluminium baseball bat.<br>Weighs less, swings faster, and is more durable than a standard baseball bat.",
+    Tooltip_BetterTraits_Cure = "A powerful concoction capable of reversing the effects of zombification.<br>Can only be crafted by the most talented medical researchers.",
+    Tooltip_BetterTraits_AntiqueMag1 = "A limited edition magazine.<br>This edition teaches the taboo art of converting human corpses into useful fertilizer.",
+    Tooltip_BetterTraits_AntiqueMag2 = "A limited edition magazine.<br>This edition delves into home crafting recipes with Papier-Mache.",
+    Tooltip_BetterTraits_AntiqueMag3 = "A limited edition magazine.<br>This edition offers commentary on the cannibalistic recipes of certain Papua New Guniea tribes.",
+    Tooltip_BetterTraits_PapierMacheSword = "Fun for the whole family!<br>Not for children under the age of four.",
+}
