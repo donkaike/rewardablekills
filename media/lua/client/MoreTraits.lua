@@ -70,7 +70,7 @@ local function addXPNoMultiplier(_player, _perk, _amount)
 end
 
 local function initToadTraits()
-    
+
     -- pro traits
     local bluntperk = TraitFactory.addTrait("problunt", getText("UI_trait_problunt"), 5, getText("UI_trait_probluntdesc"), false, false);
     bluntperk:addXPBoost(Perks.SmallBlunt, 1);
@@ -101,8 +101,7 @@ local function initToadTraits()
     grunt:addXPBoost(Perks.SmallBlunt, 1);
     local quiet = TraitFactory.addTrait("quiet", getText("UI_trait_quiet"), 3, getText("UI_trait_quietdesc"), false, false);
     quiet:addXPBoost(Perks.Sneak, 1);
-    local tinkerer = TraitFactory.addTrait("tinkerer", getText("UI_trait_tinkerer"), 8, getText("UI_trait_tinkererdesc"), false, false);
-    tinkerer:addXPBoost(Perks.Electricity, 1);
+    local tinkerer = TraitFactory.addTrait("tinkerer", getText("UI_trait_tinkerer"), 6, getText("UI_trait_tinkererdesc"), false, false);
     tinkerer:addXPBoost(Perks.Mechanics, 1);
     tinkerer:addXPBoost(Perks.Tailoring, 1);
     local scrapper = TraitFactory.addTrait("scrapper", getText("UI_trait_scrapper"), 4, getText("UI_trait_scrapperdesc"), false, false);
@@ -122,9 +121,10 @@ local function initToadTraits()
     local expertdriver = TraitFactory.addTrait("expertdriver", getText("UI_trait_expertdriver"), 5, getText("UI_trait_expertdriverdesc"), false, false);
     local packmule = TraitFactory.addTrait("packmule", getText("UI_trait_packmule"), 7, getText("UI_trait_packmuledesc"), false, false);
     local graverobber = TraitFactory.addTrait("graverobber", getText("UI_trait_graverobber"), 7, getText("UI_trait_graverobberdesc"), false, false);
-    local gymgoer = TraitFactory.addTrait("gymgoer", getText("UI_trait_gymgoer"), 5, getText("UI_trait_gymgoerdesc"), false, false);
-    gymgoer:addXPBoost(Perks.Strength, 1);
-    gymgoer:addXPBoost(Perks.Fitness, 1);
+    local gymgoerA = TraitFactory.addTrait("gymgoerA", getText("UI_trait_gymgoerA"), 4, getText("UI_trait_gymgoerdescA"), false, false);
+    gymgoerA:addXPBoost(Perks.Strength, 1);
+    local gymgoerP = TraitFactory.addTrait("gymgoerP", getText("UI_trait_gymgoerP"), 4, getText("UI_trait_gymgoerdescP"), false, false);
+    gymgoerP:addXPBoost(Perks.Fitness, 1);
 
 
     --===========--
@@ -720,12 +720,16 @@ local function GymGoer(_player, _perk, _amount)
     local player = _player;
     local perk = _perk;
     local amount = _amount;
-    if player:HasTrait("gymgoer") then
-        if perk == Perks.Fitness or perk == Perks.Strength then
+    if player:HasTrait("gymgoerA") then
+        if perk == Perks.Strength then
             amount = amount * 1.5;
             player:getXp():AddXP(perk, amount, false, false);
         end
-
+    elseif player:HasTrait("gymgoerB") then
+        if perk == Perks.Fitness then
+            amount = amount * 1.5;
+            player:getXp():AddXP(perk, amount, false, false);
+        end
     end
 end
 local function test(_container)
