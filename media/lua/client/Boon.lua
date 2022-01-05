@@ -9,6 +9,24 @@ require("Items/ProceduralDistributions");
 ]]
 
 --Global variables
+--how much itens per roll
+intMaxRolls = 2;
+
+-- luck can influence the rolls
+intLuckExtraRoll = 50; -- 0 to 100 (-1 to disable)
+intUnluckLostRoll = 50; -- 0 to 100 (-1 to disable)
+
+--chance
+intBaseChance = 3;
+--added chance by boon
+intNoobModify = 20;
+intNormalModify = 10;
+intVeteranModify = 0;
+--added chance by luck;
+intLuckModify = 1;
+intUnluckModify = -1;
+
+
 --days until next stage
 intNoobDays = 3;
 intNormalDays = 10;
@@ -95,27 +113,45 @@ local function checkProgress()
     end
 end
 
-local function graveRobber(_zombie)
+local function boonAction(_zombie)
     local player = getPlayer();
     local zombie = _zombie;
-    local chance = 5;
+    local chance = intBaseChance;
+    local extraRoll = 0;
+    local zombieKills = player:getZombieKills();
 
-    if player:HasTrait("graverobber") then
-        if player:HasTrait("Lucky") then
-            chance = chance + 2;
+    --luck influence
+    if player:HasTrait("Lucky") then
+        chance = chance + intLuckModify;
+        -- with luck you have a chance of get extra roll
+        if intLuckExtraRoll <= ZombRand(0, 100) then
+            extraRoll = 1;
         end
-        if player:HasTrait("Unlucky") then
-            chance = chance - 2;
-        end 
-        if chance <= 0 then
-            chance = 1;
+    end
+
+    --unluck influence
+    if player:HasTrait("Unlucky") then
+        chance = chance + intUnluckModify;
+        -- with unluck you have a chance of lost an roll, only if the rolls of server are more than one
+        if intUnluckLostRoll <= ZombRand(0, 100) and intMaxRolls > 1 then
+            extraRoll = -1;
         end
+    end
+
+    --kills influence
+    
+
+    if chance <= 0 then
+        chance = 1;
+    end
+
+    if player:HasTrait("noobboon") then
         if ZombRand(0, 100) <= chance then
             local inv = zombie:getInventory();
-            local itterations = ZombRand(1, chance + 1);
+            local itterations = ZombRand(1, intMaxRolls);
             for i = 0, itterations do
                 i = i + 1;
-                local roll = ZombRand(0, 100);
+                local roll = ZombRand(0, 1000);
                 print("roool " .. tostring(roll));
                 if roll <= 10 then
                     local randomitem = { "Base.Apple", "Base.Avocado", "Base.Banana", "Base.BellPepper", "Base.BeerCan",
@@ -202,7 +238,7 @@ local function graveRobber(_zombie)
 
 end
 
-Events.OnZombieDead.Add(graveRobber); --every kill
+Events.OnZombieDead.Add(boonAction); --every kill
 
 Events.EveryHours.Add(checkProgress); --every hour check progress
 
