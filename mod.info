@@ -1,5 +1,5 @@
-name=Better Traits
+name=Rewardable Kills
 poster=generic.png
 versionMin=41.0
-description=Vamos reformular esse mod aqui, toca aqui Ha''pp
+description=Rewards for kills zombies, starting with common drop table and going to a rare table by the time and kill counts.
 id=RewardableKills
