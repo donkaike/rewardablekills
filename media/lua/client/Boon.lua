@@ -19,25 +19,172 @@ intUnluckLostRoll = 50; -- 0 to 100 (-1 to disable)
 --chance
 intBaseChance = 3;
 --added chance by boon
-intNoobModify = 20;
+intNoobModify = 18;
 intNormalModify = 10;
 intVeteranModify = 0;
 --added chance by luck;
 intLuckModify = 1;
 intUnluckModify = -1;
 
-
 --days until next stage
 intNoobDays = 3;
-intNormalDays = 10;
-intVeteranDyas = 20;
-
+intNormalDays = 8;
+intVeteranDays = 20;
 -- OR
-
 -- days until next stage
-intZedNoob = 250;
+intZedNoob = 200;
 intZedNormal = 750;
 intZedVeteran = 2000;
+
+--tables of chance by boon
+--all tables need to have 1000 points of weigth
+DropTables = {
+    noobboon = {
+        noob = 600,
+        common = 300,
+        uncommon = 85,
+        rare = 10,
+        epic = 4,
+        legendary = 1,
+    },
+    normalboon = {
+        noob = 130,
+        common = 400,
+        uncommon = 300,
+        rare = 105,
+        epic = 50,
+        legendary = 15,
+    },
+    veteranboon = {
+        noob = 50,
+        common = 200,
+        uncommon = 400,
+        rare = 200,
+        epic = 100,
+        legendary = 50,
+    },
+}
+
+--each table
+--test "Base.VHS_Retail"
+
+noobTable = {
+    --only foods and water
+    "Base.Apple", "Base.Banana", "Base.Bread", "farming.Cabbage", "Base.Pop", 
+    "Base.GranolaBar", "Base.JuiceBox", "Base.Dogfood", "Base.WaterBottleFull", "Base.WaterBottleFull", 
+};
+
+commonTable = {
+    -- some common weapons and tools
+    "Base.Hammer", "Base.MetalPipe", "Base.Screwdriver", "Base.KitchenKnife",
+    "Base.GardenSaw", "Radio.WalkieTalkie1", "Base.SpearCrafted"
+    -- food
+    "Base.CannedCorn", "Base.CannedPotato2", "Base.CannedSardines", "Base.CannedTomato2",
+    "Base.BeerCan", "Base.Wine", "Base.Chocolate", "Base.CannedCarrots2",
+};
+
+uncommonTable = {
+    --weapons
+    "Base.GardenFork", "Base.Shovel", "farming.HandShovel", "Base.BaseballBat",
+    -- misc
+    "Base.WhiskeyFull", "Base.JarLid", "Base.EmptyJar",
+
+    -- consumables things
+    "Base.NailsBox", "Base.Twine", "Base.Scissors", "Base.Cigarettes", "Base.Lighter", "Base.Matches", "Base.WeldingRods",
+    "Base.Wire", "Base.DuctTape", "Base.Woodglue",
+
+    -- medical
+    "Base.Pills", "Base.PillsAntiDep", "Base.PillsBeta", "Base.PillsVitamins", "Base.Antibiotics",
+    "Base.Disinfectant", "Base.Bandage", 
+
+    --bullets
+    "subtable.bullets"
+};
+
+rareTable = {
+    -- better tools and weapons
+    "Base.FishingRod", "Base.Axe", "Base.WoodAxe", "Base.WeldingMask", "Base.HandTorch", 
+
+    -- farming
+    "subtable.seeds",
+
+    --carparts
+    "subtable.carparts",
+
+    --cars tools
+    "Base.EmptyPetrolCan", "Base.CarBatteryCharger", "Base.Jack", "Base.LugWrench", "Base.TirePump", "Base.Wrench", "Base.EngineParts", 
+};
+
+epicTable = {
+    -- top weapons
+    "Base.Machete",  "Base.Crowbar",
+    
+    --books
+    "subtable.books",
+
+    --magazines
+    "subtable.magazines",
+
+    -- misc
+    "Base.PropaneTank", "Base.Padlock", "Base.PetrolCan",
+};
+
+legendaryTable = {
+    -- weapons
+    "Base.AssaultRifle2", "Base.Katana", 
+    
+    -- tools
+    "Base.Generator", "Base.Sledgehammer", 
+
+    --bags
+    "Base.Bag_ALICEpack_Army", "Base.Bag_ALICEpack",
+};
+
+
+--subtables
+carparts = {
+    "Base.NormalBrake1", "Base.NormalBrake2", "Base.NormalBrake3",
+    "Base.NormalSuspension1", "Base.NormalSuspension2", "Base.NormalSuspension3",
+    "Base.NormalTire1", "Base.NormalTire2", "Base.NormalTire3", 
+    "Base.FrontWindow1", "Base.FrontWindow2", "Base.FrontWindow3", 
+    "Base.RearWindow1", "Base.RearWindow2", "Base.RearWindow3", 
+    "Base.RearWindshield1", "Base.RearWindshield2", "Base.RearWindshield3", 
+    "Base.Windshield1", "Base.Windshield2", "Base.Windshield3", 
+    "Base.CarBattery1", "Base.CarBattery2", "Base.CarBattery3",
+};
+
+books = {
+    "Base.BookCarpentry1", "Base.BookCarpentry2", "Base.BookCarpentry3", "Base.BookCarpentry4", "Base.BookCarpentry5",
+    "Base.BookCooking1", "Base.BookCooking2", "Base.BookCooking3", "Base.BookCooking4", "Base.BookCooking5",
+    "Base.BookElectrician1", "Base.BookElectrician2", "Base.BookElectrician3", "Base.BookElectrician4", "Base.BookElectrician5",
+    "Base.BookFarming1", "Base.BookFarming2", "Base.BookFarming3", "Base.BookFarming4", "Base.BookFarming5",
+    "Base.BookFirstAid1", "Base.BookFirstAid2", "Base.BookFirstAid3", "Base.BookFirstAid4", "Base.BookFirstAid5",
+    "Base.BookFishing1", "Base.BookFishing2", "Base.BookFishing3", "Base.BookFishing4", "Base.BookFishing5",
+    "Base.BookForaging1", "Base.BookForaging2", "Base.BookForaging3", "Base.BookForaging4", "Base.BookForaging5",
+    "Base.BookMechanic1", "Base.BookMechanic2", "Base.BookMechanic3", "Base.BookMechanic4", "Base.BookMechanic5",
+    "Base.BookMetalWelding1", "Base.BookMetalWelding2", "Base.BookMetalWelding3", "Base.BookMetalWelding4", "Base.BookMetalWelding5",
+    "Base.BookTailoring1", "Base.BookTailoring2", "Base.BookTailoring3", "Base.BookTailoring4", "Base.BookTailoring5",
+    "Base.BookTrapping1", "Base.BookTrapping2", "Base.BookTrapping3", "Base.BookTrapping4", "Base.BookTrapping5",
+};
+
+magazines = {
+    "Base.CookingMag1", "Base.CookingMag2", "Base.ElectronicsMag1", "Base.ElectronicsMag2", "Base.ElectronicsMag3",
+    "Base.ElectronicsMag4", "Base.ElectronicsMag5", "Base.EngineerMagazine1", "Base.EngineerMagazine2",
+    "Base.FarmingMag1", "Base.FishingMag1", "Base.FishingMag2", "Base.HerbalistMag", "Base.HuntingMag1", "Base.HuntingMag2",
+    "Base.HuntingMag3", "Base.MechanicMag1", "Base.MechanicMag2", "Base.MechanicMag3", "Base.MetalworkMag1",
+    "Base.MetalworkMag2", "Base.MetalworkMag3", "Base.MetalworkMag4",
+}
+
+bullets = {
+    "Base.Bullets9mmBox", "Base.Bullets45Box", "Base.Bullets44Box", "Base.Bullets38Box",
+    "Base.223Box", "Base.308Box", "Base.ShotgunShellsBox",
+}
+
+seeds = {
+    "farming.BroccoliBagSeed", "farming.CabbageBagSeed", "farming.CarrotBagSeed", 
+    "farming.PotatoBagSeed", "farming.RedRadishBagSeed", "farming.StrewberrieBagSeed",
+    "farming.TomatoBagSeed", 
+}
 
 local function tableContains(t, e)
     for _, value in pairs(t) do
@@ -81,7 +228,7 @@ end
 
 local function initTraits()
     local noobboon = TraitFactory.addTrait("noobboon", getText("UI_trait_noobboon"), 0, getText("UI_trait_noobboondesc"), false, false);
-    local boon = TraitFactory.addTrait("boon", getText("UI_trait_boon"), 0, getText("UI_trait_boondesc"), false, false);
+    local normalboon = TraitFactory.addTrait("normalboon", getText("UI_trait_normalboon"), 0, getText("UI_trait_normalboondesc"), false, false);
     local veteranboon = TraitFactory.addTrait("veteranboon", getText("UI_trait_veteranboon"), 0, getText("UI_trait_veteranboondesc"), false, false);
 end
 
@@ -92,24 +239,15 @@ end
 
 local function checkProgress()
     local player = getPlayer();
-    if player:HasTrait("depressive") then
-        local basechance = 5;
-        if player:HasTrait("Lucky") then
-            basechance = basechance - 2 * luckimpact;
-        end
-        if player:HasTrait("Unlucky") then
-            basechance = basechance + 2 * luckimpact;
-        end
-        if player:HasTrait("Brooding") then
-            basechance = basechance + 2;
-        end
-        if ZombRand(100) <= basechance then
-            if player:getModData().bToadTraitDepressed == false then
-                print("Player is experiencing depression.");
-                player:getBodyDamage():setUnhappynessLevel((player:getBodyDamage():getUnhappynessLevel() + 25));
-                player:getModData().bToadTraitDepressed = true;
-            end
-        end
+    local zombieKills = player:getZombieKills();
+    local daysAlive = player:getHoursSurvived() / 24;
+
+    if player:HasTrait("noobboon") and daysAlive >= intVeteranDays or zombieKills >= intZedVeteran then
+        player:getTraits():remove("noobboon");
+        player:getTraits():add("normalboon");
+    elseif player:HasTrait("normalboon") daysAlive >= intNormalDays or zombieKills >= intZedNormal then
+        player:getTraits():remove("normalboon");
+        player:getTraits():add("veteranboon");
     end
 end
 
@@ -118,29 +256,30 @@ local function boonAction(_zombie)
     local zombie = _zombie;
     local chance = intBaseChance;
     local extraRoll = 0;
-    local zombieKills = player:getZombieKills();
 
     --luck influence
     if player:HasTrait("Lucky") then
         chance = chance + intLuckModify;
         -- with luck you have a chance of get extra roll
-        if intLuckExtraRoll <= ZombRand(0, 100) then
+        if ZombRand(0, 100) <= intLuckExtraRoll then
             extraRoll = 1;
         end
-    end
+    end 
 
     --unluck influence
     if player:HasTrait("Unlucky") then
         chance = chance + intUnluckModify;
         -- with unluck you have a chance of lost an roll, only if the rolls of server are more than one
-        if intUnluckLostRoll <= ZombRand(0, 100) and intMaxRolls > 1 then
+        if ZombRand(0, 100) <= intUnluckLostRoll and intMaxRolls > 1 then
             extraRoll = -1;
         end
     end
 
     --kills influence
+    if then
+    elseif roll <= 20 then
+    end
     
-
     if chance <= 0 then
         chance = 1;
     end

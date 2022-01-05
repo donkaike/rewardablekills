@@ -1,8 +1,8 @@
 UI_EN = {
     UI_trait_noobboon = "Noob Boon",
     UI_trait_noobboondesc = "You are a lucky guy, will find a few more itens when kills zombies",
-    UI_trait_boon = "Boon",
-    UI_trait_boondesc = "You already kill some zombies, and with new eyes you start to find some useful things",
+    UI_trait_normalboon = "Boon",
+    UI_trait_normalboondesc = "You already kill some zombies, and with new eyes you start to find some useful things",
     UI_trait_veteranboon = "Veteran Boon",
     UI_trait_veteranboondesc = "You are a killing machine for rewards!",
 }
