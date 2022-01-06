@@ -1,4 +1,4 @@
-name=Rewardable Kills
+name=AAARewardable Kills
 poster=generic.png
 versionMin=41.0
 description=Rewards for kills zombies, starting with common drop table and going to a rare table by the time and kill counts.
