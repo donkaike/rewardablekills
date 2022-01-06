@@ -10,7 +10,7 @@ require("Items/ProceduralDistributions");
 
 --Global variables
 --how much itens per roll
-intMaxRolls = 2;
+intMaxRolls = 1;
 
 -- luck can influence the rolls
 intLuckExtraRoll = 50; -- 0 to 100 (-1 to disable)
@@ -71,13 +71,12 @@ DropTables = {
 noobTable = {
     --only foods and water
     "Base.Apple", "Base.Banana", "Base.Bread", "farming.Cabbage", "Base.Pop", 
-    "Base.GranolaBar", "Base.JuiceBox", "Base.Dogfood", "Base.WaterBottleFull", "Base.WaterBottleFull", 
+    "Base.GranolaBar", "Base.JuiceBox", "Base.Dogfood", "Base.WaterBottleFull", "Base.WaterBottleFull",
 };
 
 commonTable = {
     -- some common weapons and tools
-    "Base.Hammer", "Base.MetalPipe", "Base.Screwdriver", "Base.KitchenKnife",
-    "Base.GardenSaw", "Radio.WalkieTalkie1", "Base.SpearCrafted",
+    "Base.Hammer", "Base.MetalPipe", "Base.GardenSaw", "Radio.WalkieTalkie1",
 
     -- food
     "Base.CannedCorn", "Base.CannedPotato2", "Base.CannedSardines", "Base.CannedTomato2",
@@ -92,15 +91,11 @@ uncommonTable = {
     "Base.WhiskeyFull", "Base.JarLid", "Base.EmptyJar",
 
     -- consumables things
-    "Base.NailsBox", "Base.Twine", "Base.Scissors", "Base.Cigarettes", "Base.Lighter", "Base.Matches", "Base.WeldingRods",
+    "Base.NailsBox", "Base.Twine", "Base.Scissors", "Base.WeldingRods",
     "Base.Wire", "Base.DuctTape", "Base.Woodglue",
 
-    -- medical
-    "Base.Pills", "Base.PillsAntiDep", "Base.PillsBeta", "Base.PillsVitamins", "Base.Antibiotics",
-    "Base.Disinfectant", "Base.Bandage", 
-
     --bullets
-    "subtable.bullets",
+    "subtable.bullets", "subtable.bullets",
 };
 
 rareTable = {
@@ -111,7 +106,7 @@ rareTable = {
     "subtable.seeds",
 
     --carparts
-    "subtable.carparts",
+    "subtable.carparts", "subtable.carparts",
 
     --cars tools
     "Base.EmptyPetrolCan", "Base.CarBatteryCharger", "Base.Jack", "Base.LugWrench", "Base.TirePump", "Base.Wrench", "Base.EngineParts", 
@@ -136,7 +131,7 @@ legendaryTable = {
     "Base.AssaultRifle", "Base.Katana", 
     
     -- tools
-    "Base.Generator", "Base.Sledgehammer", 
+    "Base.Sledgehammer", 
 
     --bags
     "Base.Bag_ALICEpack_Army", "Base.Bag_ALICEpack",
@@ -233,7 +228,6 @@ end
 local function initPlayer()
     local player = getPlayer();
     player:getTraits():add("noobboon");
-    print("ADEEEEEDEDEDEDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
 end
 
 local function checkProgress()
@@ -352,6 +346,7 @@ local function boonAction(_zombie)
             --check if is a subtable
             if string.find(randomitem, "subtable") then
                 randomitem = SubTables[string.gsub(randomitem, "subtable.", "")][ZombRand(1, tablelength(SubTables[string.gsub(randomitem, "subtable.", "")]))];
+                print("SUB TABLE @@@@@@@ " .. randomitem);
             end
 
             print("droooppp ########## " .. randomitem);
