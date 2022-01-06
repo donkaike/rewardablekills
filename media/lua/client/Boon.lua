@@ -297,7 +297,7 @@ local function boonAction(_zombie)
     if ZombRand(0, 100) <= chance then
         local itterations = ZombRand(1, intMaxRolls + extraRoll);
         print("rolasssssssssssssssss " .. itterations);
-        for i = 0, itterations do
+        for i = 1, itterations do
             i = i + 1;
             local roll = ZombRand(0, 1000);
             local randomitem = "";
