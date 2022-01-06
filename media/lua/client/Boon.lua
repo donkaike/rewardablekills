@@ -19,8 +19,8 @@ intUnluckLostRoll = 50; -- 0 to 100 (-1 to disable)
 --chance
 intBaseChance = 1;
 --added chance by boon
-intNoobModify = 7;
-intNormalModify = 3;
+intNoobModify = 5;
+intNormalModify = 2;
 intVeteranModify = 0;
 --added chance by luck;
 intLuckModify = 1;
@@ -49,18 +49,18 @@ DropTables = {
     },
     normalboon = {
         noob = 130,
-        common = 400,
-        uncommon = 300,
-        rare = 105,
+        common = 250,
+        uncommon = 350,
+        rare = 205,
         epic = 50,
         legendary = 15,
     },
     veteranboon = {
         noob = 50,
-        common = 200,
+        common = 100,
         uncommon = 400,
-        rare = 200,
-        epic = 100,
+        rare = 250,
+        epic = 150,
         legendary = 50,
     },
 }
@@ -76,7 +76,7 @@ noobTable = {
 
 commonTable = {
     -- some common weapons and tools
-    "Base.Hammer", "Base.MetalPipe", "Base.GardenSaw", "Radio.WalkieTalkie1",
+    "Base.Hammer", "Base.MetalPipe", "Base.GardenSaw",
 
     -- food
     "Base.CannedCorn", "Base.CannedPotato2", "Base.CannedSardines", "Base.CannedTomato2",
@@ -93,9 +93,6 @@ uncommonTable = {
     -- consumables things
     "Base.NailsBox", "Base.Twine", "Base.Scissors", "Base.WeldingRods",
     "Base.Wire", "Base.DuctTape", "Base.Woodglue",
-
-    --bullets
-    "subtable.bullets", "subtable.bullets",
 };
 
 rareTable = {
@@ -107,6 +104,9 @@ rareTable = {
 
     --carparts
     "subtable.carparts", "subtable.carparts",
+
+    --bullets
+    "subtable.bullets", "subtable.bullets",
 
     --cars tools
     "Base.EmptyPetrolCan", "Base.CarBatteryCharger", "Base.Jack", "Base.LugWrench", "Base.TirePump", "Base.Wrench", "Base.EngineParts", 
@@ -276,7 +276,7 @@ local function boonAction(_zombie)
             extraRoll = -1;
         end
     end
-    
+
     if chance <= 0 then
         chance = 1;
     end
@@ -296,6 +296,7 @@ local function boonAction(_zombie)
     -- first we see if will enter in loot tables
     if ZombRand(0, 100) <= chance then
         local itterations = ZombRand(1, intMaxRolls + extraRoll);
+        print("rolasssssssssssssssss " .. itterations);
         for i = 0, itterations do
             i = i + 1;
             local roll = ZombRand(0, 1000);
