@@ -11,6 +11,7 @@ require("Items/ProceduralDistributions");
 --Global variables
 --how much itens per roll
 intMaxRolls = 1;
+intLegendaryRolls = 5;
 
 -- luck can influence the rolls
 intLuckExtraRoll = 50; -- 0 to 100 (-1 to disable)
@@ -127,14 +128,28 @@ epicTable = {
 };
 
 legendaryTable = {
+    "Base.EngineParts", 
+
+    --bullets
+    "subtable.bullets",
+
+    --vhs
+    "Base.VHS_Retail",
+
+    --books
+    "subtable.books",
+
+    --magazines
+    "subtable.magazines",
+
     -- weapons
-    "Base.AssaultRifle", "Base.Katana", 
+    --"Base.AssaultRifle", "Base.Katana", 
     
     -- tools
-    "Base.Sledgehammer", 
+    --"Base.Sledgehammer", 
 
     --bags
-    "Base.Bag_ALICEpack_Army", "Base.Bag_ALICEpack",
+    --"Base.Bag_ALICEpack_Army", "Base.Bag_ALICEpack",
 };
 
 
@@ -185,6 +200,48 @@ SubTables = {
     },
 }
 
+local function tableContains(t, e)
+    for _, value in pairs(t) do
+        if value == e then
+            return true
+        end
+    end
+    return false
+end
+
+local function istable(t)
+    local type = type(t)
+    return type == 'table'
+end
+
+local function tablelength(T)
+    local count = 0
+    if istable(T) == true then
+        for _ in pairs(T) do
+            count = count + 1
+        end
+    else
+        count = 1
+    end
+    return count
+end
+
+local function deepcopy(orig)
+    local orig_type = type(orig)
+    local copy
+    if orig_type == 'table' then
+        copy = {}
+        for orig_key, orig_value in next, orig, nil do
+            copy[deepcopy(orig_key)] = deepcopy(orig_value)
+        end
+        setmetatable(copy, deepcopy(getmetatable(orig)))
+    else
+        -- number, string, boolean, etc
+        copy = orig
+    end
+    return copy
+end
+
 local function initPlayer()
     local player = getPlayer();
     player:getTraits():add("noobboon");
@@ -210,13 +267,6 @@ local function checkProgress()
             player:getTraits():add("veteranboon");
         end
     elseif player:HasTrait("veteranboon") == false then
-        local playerdata = player:getModData();
-        playerdata.iNoobDrops = 0;
-        playerdata.iCommonDrops = 0;
-        playerdata.iUncommonDrops = 0;
-        playerdata.iRareDrops = 0;
-        playerdata.iEpicDrops = 0;
-        playerdata.iLegendaryDrops = 0;
         player:getTraits():add("noobboon");
     end
 end
@@ -226,7 +276,6 @@ local function boonAction(_zombie)
     local zombie = _zombie;
     local chance = intBaseChance;
     local extraRoll = 0;
-    local playerdata = player:getModData();
 
     --luck influence
     if player:HasTrait("Lucky") then
@@ -260,8 +309,8 @@ local function boonAction(_zombie)
     elseif player:HasTrait("veteranboon") then
         chance = chance + intVeteranModify;
         currentBoon = "veteranboon";
-    end
-    
+    end 
+
     -- first we see if will enter in loot tables
     if ZombRand(0, 100) <= chance then
         local itterations = ZombRand(1, intMaxRolls + extraRoll);
@@ -272,8 +321,11 @@ local function boonAction(_zombie)
             local increment = 0;
 
             if roll <= DropTables[currentBoon]["legendary"] then
-                randomitem = legendaryTable[ZombRand(1, tablelength(legendaryTable))];
-                playerdata.iLegendaryDrops = playerdata.iLegendaryDrops + 1;
+                for i = 1, intLegendaryRolls do
+                    randomitem = legendaryTable[ZombRand(1, tablelength(legendaryTable))];
+                    addItemToInv(zombie, randomitem);
+                end
+                return;
             else
                 increment = increment + DropTables[currentBoon]["legendary"];
             end
@@ -281,49 +333,52 @@ local function boonAction(_zombie)
 
             if roll <= DropTables[currentBoon]["epic"] + increment and randomitem == "" then
                 randomitem = epicTable[ZombRand(1, tablelength(epicTable))];
-                playerdata.iEpicDrops = playerdata.iEpicDrops + 1;
             else
                 increment = increment + DropTables[currentBoon]["epic"];
             end
 
             if roll <= DropTables[currentBoon]["rare"] + increment and randomitem == "" then
                 randomitem = rareTable[ZombRand(1, tablelength(rareTable))];
-                playerdata.iRareDrops = playerdata.iRareDrops + 1;
             else
                 increment = increment + DropTables[currentBoon]["rare"];
             end
 
             if roll <= DropTables[currentBoon]["uncommon"] + increment and randomitem == "" then
                 randomitem = uncommonTable[ZombRand(1, tablelength(uncommonTable))];
-                playerdata.iUncommonDrops = playerdata.iUncommonDrops + 1;
             else
                 increment = increment + DropTables[currentBoon]["uncommon"];
             end
 
             if roll <= DropTables[currentBoon]["common"] + increment and randomitem == "" then
                 randomitem = commonTable[ZombRand(1, tablelength(commonTable))];
-                playerdata.iCommonDrops = playerdata.iCommonDrops + 1;
             else
                 increment = increment + DropTables[currentBoon]["common"];
             end
 
             if roll <= DropTables[currentBoon]["noob"] + increment and randomitem == "" then
                 randomitem = noobTable[ZombRand(1, tablelength(noobTable))];
-                playerdata.iNoobDrops = playerdata.iNoobDrops + 1;
             end
 
-            --check if is a subtable
-            if string.find(randomitem, "subtable") then
-                randomitem = SubTables[string.gsub(randomitem, "subtable.", "")][ZombRand(1, tablelength(SubTables[string.gsub(randomitem, "subtable.", "")]))];
-            end
+            addItemToInv(zombie, randomitem);
 
-            zombie:getInventory():AddItem(randomitem);
             --player:getInventory():AddItem(randomitem);
         end
 
     end
 
 end
+
+function addItemToInv(zombie, randomitem)
+    --check if is a subtable
+    print("drop ....... ");
+    if string.find(randomitem, "subtable") then
+        randomitem = SubTables[string.gsub(randomitem, "subtable.", "")][ZombRand(1, tablelength(SubTables[string.gsub(randomitem, "subtable.", "")]))];
+    end
+
+    zombie:getInventory():AddItem(randomitem);
+end
+
+
 
 Events.OnZombieDead.Add(boonAction); --every kill
 
