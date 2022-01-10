@@ -1,0 +1,8 @@
+UI_PTBR = {
+    UI_trait_noobboon = "A benção do recém-chegado",
+    UI_trait_noobboondesc = "Você é um cara de sorte, vai encontrar mais itens ao matar zumbis.",
+    UI_trait_normalboon = "A benção do sobrevivente",
+    UI_trait_normalboondesc = "Você já matou alguns zumbis e com novos olhos, começa a encontrar algumas coisas úteis.",
+    UI_trait_veteranboon = "A benção do veterano",
+    UI_trait_veteranboondesc = "Você é uma maquina de matar zumbis a troco de recompensas.",
+}
