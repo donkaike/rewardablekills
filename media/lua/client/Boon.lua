@@ -210,7 +210,7 @@ SubTables = {
 }
 
 GrantedTable = {
-    "Base.Hammer", "Base.TinOpener", "Base.Chocolate", "farming.Cabbage", "Base.Bread", "Base.WaterBottleFull",
+    "Base.Hammer", "Base.WaterBottleFull", "Base.Chocolate", "farming.Cabbage", "Base.Bread", "Base.TinOpener",
 }
 
 local function tableContains(t, e)
