@@ -9,6 +9,7 @@ require("Items/ProceduralDistributions");
 ]]
 
 --[[
+    Changelog
     - Added Vinegar e Sugar to tables
     - Added granted loot table (for the first zeds always have one item from 'granted table')
     - Granted loot: Water, food, hammer, canopener
@@ -16,7 +17,6 @@ require("Items/ProceduralDistributions");
     - Great increased chances for newcomers
     - Increased Veteran time (from 8 to 12 days)
 ]]
-
 
 --Global variables
 --how much itens per roll
@@ -76,7 +76,7 @@ commonTable = {
 
 uncommonTable = {
     --weapons and tools
-    "Base.GardenFork", "Base.Shovel", "Base.BaseballBat"
+    "Base.GardenFork", "Base.Shovel", "Base.BaseballBat",
 
     -- misc
     "Base.WhiskeyFull", "Base.JarLid", "Base.EmptyJar", "Base.Vinegar", "Base.Sugar", "Base.JarLid", 
@@ -300,10 +300,11 @@ local function boonAction(_zombie)
         -- check granted table
         local countKills = player:getModData().countKills;
         if countKills == nil then
-            player:getModData().countKills = 0;
+            player:getModData().countKills = 1;
+            countKills = 1;
         end
 
-        if countKills < tablelength(GrantedTable) then
+        if countKills <= tablelength(GrantedTable) then
             addItemToInv(zombie, GrantedTable[countKills]);
             player:getModData().countKills = player:getModData().countKills + 1;
             return;
@@ -386,11 +387,9 @@ function addItemToInv(zombie, randomitem)
 end
 
 
-
 Events.OnZombieDead.Add(boonAction); --every kill
 
 Events.EveryHours.Add(checkProgress); --every hour check progress
 
 Events.OnNewGame.Add(initPlayer); -- init the traits
 --Events.OnNewGame.Add(addStartingTrait); --add the starting trait
-
