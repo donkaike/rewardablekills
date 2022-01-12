@@ -1,0 +1,34 @@
+Sandbox_EN = {
+    
+    NormalDaysTXT = "Days to become a Survivor (MUST BE LESS THAN VETERAN DAYS)",
+    Sandbox_NormalDaysTXT_tooltip = "Days to become a Survivor.",
+
+    VeteranDaysTXT = "Days to become a Veteran (MUST BE MORE THAN SURVIVOR DAYS)",
+    Sandbox_VeteranDaysTXT_tooltip = "Days to become a Veteran.",
+
+    NormalKillsTXT = "Kills to become a Survivor (MUST BE LESS THAN VETERAN KILLS)",
+    Sandbox_NormalKillsTXT_tooltip = "Kills to become a Survivor.",
+
+    VeteranKillsTXT = "Kills to become a Veteran (MUST BE MORE THAN SURVIVOR KILLS)",
+    Sandbox_VeteranKillsTXT_tooltip = "Kills to become a Veteran.",
+
+
+    NoobChanceTXT = "Chance to a newcomer drop something",
+    Sandbox_NoobChanceTXT_tooltip = "Chance to a newcomer drop something",
+
+    NormalChanceTXT = "Chance to a survivor drop something",
+    Sandbox_NormalChanceTXT_tooltip = "Chance to a survivor drop something",
+
+    VeteranChanceTXT = "Chance to a veteran drop something",
+    Sandbox_VeteranChanceTXT_tooltip = "Chance to a veteran drop something",
+    
+    RollsByDropTXT = "Amount of drops if chance is trigged",
+    Sandbox_RollsByDropTXT_tooltip = "Amount of drops if chance is trigged",
+    
+    LuckyExtraRollChanceTXT = "Chance to get an extra roll from lucky (-1 to disable, 100 to always)",
+    Sandbox_LuckyExtraRollChanceTXT_tooltip = "Chance to get an extra roll from lucky (-1 to disable, 100 to always)",
+
+    UnluckyExtraRollChanceTXT = "Chance to lost an roll from unlucky (-1 to disable, 100 to always)",
+    Sandbox_UnluckyExtraRollChanceTXT_tooltip = "Chance to lost an roll from unlucky (-1 to disable, 100 to always)",
+    
+}

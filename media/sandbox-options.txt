@@ -1,0 +1,61 @@
+VERSION = 1,
+
+option RewardableKills.NormalDays
+{
+	type = integer, min = 1, max = 30, default = 3,
+	page = RewardableKills, translation = NormalDaysTXT,
+}
+
+option RewardableKills.VeteranDays
+{
+	type = integer, min = 1, max = 60, default = 12,
+	page = RewardableKills, translation = VeteranDaysTXT,
+}
+
+option RewardableKills.NormalKills
+{
+	type = integer, min = 10, max = 1000, default = 200,
+	page = RewardableKills, translation = NormalKillsTXT,
+}
+
+option RewardableKills.VeteranKills
+{
+	type = integer, min = 10, max = 5000, default = 750,
+	page = RewardableKills, translation = VeteranKillsTXT,
+}
+
+option RewardableKills.NoobChance
+{
+	type = integer, min = 1, max = 100, default = 23,
+	page = RewardableKills, translation = NoobChanceTXT,
+}
+
+option RewardableKills.NormalChance
+{
+	type = integer, min = 1, max = 100, default = 7,
+	page = RewardableKills, translation = NormalChanceTXT,
+}
+
+option RewardableKills.VeteranChance
+{
+	type = integer, min = 1, max = 100, default = 1,
+	page = RewardableKills, translation = VeteranChanceTXT,
+}
+
+option RewardableKills.RollsByDrop
+{
+	type = integer, min = 1, max = 10, default = 1,
+	page = RewardableKills, translation = RollsByDropTXT,
+}
+
+option RewardableKills.LuckyExtraRollChance
+{
+	type = integer, min = -1, max = 100, default = 50,
+	page = RewardableKills, translation = LuckyExtraRollChanceTXT,
+}
+
+option RewardableKills.UnluckyExtraRollChance
+{
+	type = integer, min = -1, max = 100, default = 50,
+	page = RewardableKills, translation = UnluckyExtraRollChanceTXT,
+}

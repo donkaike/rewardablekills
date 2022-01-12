@@ -20,33 +20,14 @@ require("Items/ProceduralDistributions");
 
 --Global variables
 --how much itens per roll
-intMaxRolls = 1;
 intLegendaryRolls = 5;
-
--- luck can influence the rolls
-intLuckExtraRoll = 50; -- 0 to 100 (-1 to disable)
-intUnluckLostRoll = 50; -- 0 to 100 (-1 to disable)
 
 --chance
 intBaseChance = 1;
---added chance by boon
-intNoobModify = 23;
-intNormalModify = 6;
-intVeteranModify = 1;
 
 --added chance by luck;
 intLuckModify = 1;
 intUnluckModify = -1;
-
---days until next stage
-intNoobDays = 3;
-intNormalDays = 12;
-
--- OR
--- days until next stage
-intZedNoob = 200;
-intZedNormal = 750;
-intZedVeteran = 2000;
 
 --tables of chance by boon
 --all tables need to have 1000 points of weigth
@@ -60,12 +41,12 @@ DropTables = {
         legendary = 1,
     },
     normalboon = {
-        noob = 130,
-        common = 250,
+        noob = 200,
+        common = 325,
         uncommon = 350,
-        rare = 205,
-        epic = 50,
-        legendary = 15,
+        rare = 100,
+        epic = 20,
+        legendary = 5,
     },
     veteranboon = {
         noob = 50,
@@ -270,12 +251,12 @@ local function checkProgress()
     end
 
     if player:HasTrait("noobboon") then
-        if daysAlive >= intNoobDays or zombieKills >= intZedNoob then
+        if daysAlive >= SandboxVars.RewardableKills.NormalDays or zombieKills >= SandboxVars.RewardableKills.NormalKills then
             player:getTraits():remove("noobboon");
             player:getTraits():add("normalboon");
         end
     elseif player:HasTrait("normalboon") then
-        if daysAlive >= intNormalDays or zombieKills >= intZedNormal then
+        if daysAlive >= SandboxVars.RewardableKills.VeteranDays or zombieKills >= SandboxVars.RewardableKills.VeteranKills then
             player:getTraits():remove("normalboon");
             player:getTraits():add("veteranboon");
         end
@@ -294,7 +275,7 @@ local function boonAction(_zombie)
     if player:HasTrait("Lucky") then
         chance = chance + intLuckModify;
         -- with luck you have a chance of get extra roll
-        if ZombRand(0, 100) <= intLuckExtraRoll then
+        if ZombRand(0, 100) <= SandboxVars.RewardableKills.LuckyExtraRollChance then
             extraRoll = 1;
         end
     end 
@@ -303,7 +284,7 @@ local function boonAction(_zombie)
     if player:HasTrait("Unlucky") then
         chance = chance + intUnluckModify;
         -- with unluck you have a chance of lost an roll, only if the rolls of server are more than one
-        if ZombRand(0, 100) <= intUnluckLostRoll and intMaxRolls > 1 then
+        if ZombRand(0, 100) <= SandboxVars.RewardableKills.UnluckyExtraRollChance and SandboxVars.RewardableKills.RollsByDrop > 1 then
             extraRoll = -1;
         end
     end
@@ -328,18 +309,18 @@ local function boonAction(_zombie)
             return;
         end
 
-        chance = chance + intNoobModify;
+        chance = chance + SandboxVars.RewardableKills.NoobChance;
     elseif player:HasTrait("normalboon") then
-        chance = chance + intNormalModify;
+        chance = chance + SandboxVars.RewardableKills.NormalChance;
         currentBoon = "normalboon";
     elseif player:HasTrait("veteranboon") then
-        chance = chance + intVeteranModify;
+        chance = chance + SandboxVars.RewardableKills.VeteranChance;
         currentBoon = "veteranboon";
     end 
 
     -- first we see if will enter in loot tables
     if ZombRand(0, 100) <= chance then
-        local itterations = ZombRand(1, intMaxRolls + extraRoll);
+        local itterations = ZombRand(1, SandboxVars.RewardableKills.RollsByDrop + extraRoll);
         for i = 1, itterations do
             i = i + 1;
             local roll = ZombRand(0, 1000);
