@@ -1,8 +1,8 @@
 UI_PTBR = {
-    UI_trait_noobboon = "A ben��o do rec�m-chegado",
-    UI_trait_noobboondesc = "Voc� � um cara de sorte, vai encontrar mais itens ao matar zumbis.",
-    UI_trait_normalboon = "A ben��o do sobrevivente",
-    UI_trait_normalboondesc = "Voc� j� matou alguns zumbis e com novos olhos, começa a encontrar algumas coisas �teis.",
-    UI_trait_veteranboon = "A ben��o do veterano",
-    UI_trait_veteranboondesc = "Voc� � uma maquina de matar zumbis a troco de recompensas.",
+    UI_trait_noobboon = "A bencao do recem-chegado",
+    UI_trait_noobboondesc = "Voce eh um cara de sorte, vai encontrar mais itens ao matar zumbis.",
+    UI_trait_normalboon = "A bencao do sobrevivente",
+    UI_trait_normalboondesc = "Voce ja matou alguns zumbis e com novos olhos, começa a encontrar algumas coisas uteis.",
+    UI_trait_veteranboon = "A bencao do veterano",
+    UI_trait_veteranboondesc = "Voce eh uma maquina de matar zumbis a troco de recompensas.",
 }

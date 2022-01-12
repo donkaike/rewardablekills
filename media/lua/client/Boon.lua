@@ -8,6 +8,16 @@ require("Items/ProceduralDistributions");
     and please, give me the credits! Thanks!
 ]]
 
+--[[
+    - Added Vinegar e Sugar to tables
+    - Added granted loot table (for the first zeds always have one item from 'granted table')
+    - Granted loot: Water, food, hammer, canopener
+    - Remove some itens from tables and put on granted loot table
+    - Great increased chances for newcomers
+    - Increased Veteran time (from 8 to 12 days)
+]]
+
+
 --Global variables
 --how much itens per roll
 intMaxRolls = 1;
@@ -20,17 +30,18 @@ intUnluckLostRoll = 50; -- 0 to 100 (-1 to disable)
 --chance
 intBaseChance = 1;
 --added chance by boon
-intNoobModify = 5;
-intNormalModify = 2;
-intVeteranModify = 0;
+intNoobModify = 23;
+intNormalModify = 6;
+intVeteranModify = 1;
+
 --added chance by luck;
 intLuckModify = 1;
 intUnluckModify = -1;
 
 --days until next stage
 intNoobDays = 3;
-intNormalDays = 8;
-intVeteranDays = 20;
+intNormalDays = 12;
+
 -- OR
 -- days until next stage
 intZedNoob = 200;
@@ -67,8 +78,6 @@ DropTables = {
 }
 
 --each table
---test "Base.VHS_Retail"
-
 noobTable = {
     --only foods and water
     "Base.Apple", "Base.Banana", "Base.Bread", "farming.Cabbage", "Base.Pop", 
@@ -76,8 +85,8 @@ noobTable = {
 };
 
 commonTable = {
-    -- some common weapons and tools
-    "Base.Hammer", "Base.MetalPipe", "Base.GardenSaw",
+    -- common
+    "Base.MetalPipe", "Base.GardenSaw", "farming.HandShovel",
 
     -- food
     "Base.CannedCorn", "Base.CannedPotato2", "Base.CannedSardines", "Base.CannedTomato2",
@@ -85,11 +94,11 @@ commonTable = {
 };
 
 uncommonTable = {
-    --weapons
-    "Base.GardenFork", "Base.Shovel", "farming.HandShovel", "Base.BaseballBat",
+    --weapons and tools
+    "Base.GardenFork", "Base.Shovel", "Base.BaseballBat"
 
     -- misc
-    "Base.WhiskeyFull", "Base.JarLid", "Base.EmptyJar",
+    "Base.WhiskeyFull", "Base.JarLid", "Base.EmptyJar", "Base.Vinegar", "Base.Sugar", "Base.JarLid", 
 
     --books
     "subtable.books",
@@ -200,6 +209,10 @@ SubTables = {
     },
 }
 
+GrantedTable = {
+    "Base.Hammer", "Base.TinOpener", "Base.Chocolate", "farming.Cabbage", "Base.Bread", "Base.WaterBottleFull",
+}
+
 local function tableContains(t, e)
     for _, value in pairs(t) do
         if value == e then
@@ -257,12 +270,12 @@ local function checkProgress()
     end
 
     if player:HasTrait("noobboon") then
-        if daysAlive >= intNormalDays or zombieKills >= intZedNoob then
+        if daysAlive >= intNoobDays or zombieKills >= intZedNoob then
             player:getTraits():remove("noobboon");
             player:getTraits():add("normalboon");
         end
     elseif player:HasTrait("normalboon") then
-        if daysAlive >= intVeteranDays or zombieKills >= intZedNormal then
+        if daysAlive >= intNormalDays or zombieKills >= intZedNormal then
             player:getTraits():remove("normalboon");
             player:getTraits():add("veteranboon");
         end
@@ -302,6 +315,19 @@ local function boonAction(_zombie)
     -- get current boon and set modify
     local currentBoon = "noobboon";
     if player:HasTrait("noobboon") then
+
+        -- check granted table
+        local countKills = player:getModData().countKills;
+        if countKills == nil then
+            player:getModData().countKills = 0;
+        end
+
+        if countKills < tablelength(GrantedTable) then
+            addItemToInv(zombie, GrantedTable[countKills]);
+            player:getModData().countKills = player:getModData().countKills + 1;
+            return;
+        end
+
         chance = chance + intNoobModify;
     elseif player:HasTrait("normalboon") then
         chance = chance + intNormalModify;
